@@ -2,5 +2,5 @@ package com.example.currencyconverter;
 
 public interface MvpInteractor {
 
-    void downloadValCurs();
+    void downloadValCurs(FetchData fetchData);
 }

@@ -4,10 +4,11 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Root(name = "ValCurs")
-public class ValCurs {
+public class ValCurs implements Serializable {
 
     @Attribute(name = "Date")
     private String data;

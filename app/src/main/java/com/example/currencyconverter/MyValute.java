@@ -5,8 +5,10 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+import java.io.Serializable;
+
 @Root(name = "Valute")
-public class MyValute {
+public class MyValute implements Serializable {
 
     @Attribute(name = "ID")
     private String id;
