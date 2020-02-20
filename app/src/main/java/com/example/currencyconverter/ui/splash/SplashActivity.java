@@ -7,16 +7,27 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
 
+import com.example.currencyconverter.App;
 import com.example.currencyconverter.R;
-import com.example.currencyconverter.network.model.ValCurs;
+import com.example.currencyconverter.data.model.ValCurs;
+import com.example.currencyconverter.data.network.Api;
+import com.example.currencyconverter.di.component.AppComponent;
+import com.example.currencyconverter.di.component.DaggerSplashComponent;
+import com.example.currencyconverter.di.module.SplashModule;
 import com.example.currencyconverter.ui.main.MainActivity;
+
+import javax.inject.Inject;
 
 public class SplashActivity extends AppCompatActivity implements MvpView {
 
     public static final String TAG = "SplashActivity";
 
-    MainPresenter mainPresenter;
-    Interactor interactor;
+    @Inject
+    SplashPresenter splashPresenter;
+   // @Inject
+   // Interactor interactor;
+    @Inject
+    Api api;
     ProgressBar progressBar;
 
     @Override
@@ -24,14 +35,26 @@ public class SplashActivity extends AppCompatActivity implements MvpView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        initDagger();
         init();
+        Log.d("dd", this+"");
     }
 
-    void init() {
-        interactor = new Interactor();
-        mainPresenter = new MainPresenter(interactor, this);
+    private void init() {
+
         progressBar = findViewById(R.id.progressBar);
-        mainPresenter.startDownload();
+        splashPresenter.startDownload(api);
+    }
+
+    private void initDagger(){
+        DaggerSplashComponent.builder()
+                .appComponent(getAppComponent())
+                .splashModule(new SplashModule(this))
+                .build()
+                .inject(this);
+    }
+    private AppComponent getAppComponent(){
+        return ((App) getApplication()).getAppComponent();
     }
 
     @Override

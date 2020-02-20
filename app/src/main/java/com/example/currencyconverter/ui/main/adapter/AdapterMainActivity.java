@@ -1,4 +1,4 @@
-package com.example.currencyconverter.ui.main;
+package com.example.currencyconverter.ui.main.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.currencyconverter.R;
-import com.example.currencyconverter.network.model.MyValute;
-import com.example.currencyconverter.network.model.ValCurs;
+import com.example.currencyconverter.data.model.MyValute;
+import com.example.currencyconverter.data.model.ValCurs;
+import com.example.currencyconverter.ui.main.OnClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class AdapterMainActivity extends RecyclerView.Adapter<AdapterMainActivit
         return myValuteList.size();
     }
 
-    void setValute(ValCurs valCurs, String firstCharCode) {
+    public void setValute(ValCurs valCurs, String firstCharCode) {
         myValuteList.clear();
 
         myValuteList.addAll(valCurs.getValuteList());

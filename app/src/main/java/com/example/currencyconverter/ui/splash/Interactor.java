@@ -1,7 +1,7 @@
 package com.example.currencyconverter.ui.splash;
 
-import com.example.currencyconverter.network.RetrofitClient;
-import com.example.currencyconverter.network.model.ValCurs;
+import com.example.currencyconverter.data.network.Api;
+import com.example.currencyconverter.data.model.ValCurs;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -11,8 +11,8 @@ public class Interactor implements MvpInteractor {
 
 
     @Override
-    public void downloadValCurs(FetchData fetchData) {
-        RetrofitClient.getApi().getValCurs()
+    public void downloadValCurs(FetchData fetchData, Api api) {
+        api.getValCurs()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ValCurs>() {

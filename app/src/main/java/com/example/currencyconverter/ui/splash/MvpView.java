@@ -1,6 +1,6 @@
 package com.example.currencyconverter.ui.splash;
 
-import com.example.currencyconverter.network.model.ValCurs;
+import com.example.currencyconverter.data.model.ValCurs;
 
 public interface MvpView {
 
