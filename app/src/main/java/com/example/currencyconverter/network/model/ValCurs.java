@@ -1,4 +1,4 @@
-package com.example.currencyconverter;
+package com.example.currencyconverter.network.model;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;

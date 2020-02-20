@@ -1,4 +1,6 @@
-package com.example.currencyconverter;
+package com.example.currencyconverter.ui.splash;
+
+import com.example.currencyconverter.network.model.ValCurs;
 
 public class MainPresenter implements FetchData {
 
@@ -21,6 +23,6 @@ public class MainPresenter implements FetchData {
 
     @Override
     public void error(Throwable e) {
-        mvpView.showError();
+        mvpView.showError(e);
     }
 }

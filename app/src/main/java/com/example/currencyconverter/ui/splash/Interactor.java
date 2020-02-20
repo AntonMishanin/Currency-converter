@@ -1,6 +1,7 @@
-package com.example.currencyconverter;
+package com.example.currencyconverter.ui.splash;
 
-import android.util.Log;
+import com.example.currencyconverter.network.RetrofitClient;
+import com.example.currencyconverter.network.model.ValCurs;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;

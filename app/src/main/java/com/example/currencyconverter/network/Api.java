@@ -1,9 +1,8 @@
-package com.example.currencyconverter;
+package com.example.currencyconverter.network;
 
-import android.util.Xml;
+import com.example.currencyconverter.network.model.ValCurs;
 
 import io.reactivex.Single;
-import okhttp3.Response;
 import retrofit2.http.GET;
 
 public interface Api {

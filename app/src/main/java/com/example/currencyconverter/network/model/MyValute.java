@@ -1,4 +1,4 @@
-package com.example.currencyconverter;
+package com.example.currencyconverter.network.model;
 
 
 import org.simpleframework.xml.Attribute;
@@ -27,6 +27,17 @@ public class MyValute implements Serializable {
 
     @Element(name = "Value")
     private String value;
+
+    private boolean chosenCurrency = false;
+
+    public boolean getChosenCurrency() {
+        return chosenCurrency;
+    }
+
+    public void setChosenCurrency(boolean chosenCurrency) {
+        this.chosenCurrency = chosenCurrency;
+    }
+
 
     public String getId() {
         return id;

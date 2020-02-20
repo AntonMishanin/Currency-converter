@@ -1,12 +1,17 @@
-package com.example.currencyconverter;
+package com.example.currencyconverter.ui.main;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.currencyconverter.R;
+import com.example.currencyconverter.network.model.MyValute;
+import com.example.currencyconverter.network.model.ValCurs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +19,13 @@ import java.util.List;
 
 public class AdapterMainActivity extends RecyclerView.Adapter<AdapterMainActivity.Holder> {
 
-    private ValCurs valCurs;
-    List<MyValute> myValuteList = new ArrayList<>();
+    private List<MyValute> myValuteList = new ArrayList<>();
+    private OnClickListener onClickListener;
+    private String firstCharCode = null;
+
+    public AdapterMainActivity(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     @NonNull
     @Override
@@ -31,29 +41,40 @@ public class AdapterMainActivity extends RecyclerView.Adapter<AdapterMainActivit
 
     @Override
     public int getItemCount() {
-        return  myValuteList.size();
+        return myValuteList.size();
     }
 
-    public void setValute(ValCurs valCurs) {
+    void setValute(ValCurs valCurs, String firstCharCode) {
+        myValuteList.clear();
+
         myValuteList.addAll(valCurs.getValuteList());
+        this.firstCharCode = firstCharCode;
         notifyDataSetChanged();
     }
 
-    public class Holder extends RecyclerView.ViewHolder {
+    class Holder extends RecyclerView.ViewHolder {
 
         TextView nameTextView;
         TextView charCodeTextView;
+        ImageView imageView;
 
-        public Holder(@NonNull View itemView) {
+        Holder(@NonNull View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.name_textView);
             charCodeTextView = itemView.findViewById(R.id.char_code_textView);
+            imageView = itemView.findViewById(R.id.imageView);
         }
 
-        public void bind(int position) {
+        void bind(int position) {
             nameTextView.setText(myValuteList.get(position).getName());
             charCodeTextView.setText(myValuteList.get(position).getCharCode());
+
+            if (firstCharCode != null && firstCharCode == myValuteList.get(position).getCharCode()) {
+                imageView.setVisibility(View.VISIBLE);
+            }
+
+            itemView.setOnClickListener(v -> onClickListener.onItemClick(position));
         }
     }
 }

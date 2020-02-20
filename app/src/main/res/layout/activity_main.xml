@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <TextView
         android:id="@+id/change_currency_text_left"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/valute_char_code_right"
+        android:id="@+id/valute_char_code_second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -54,11 +54,11 @@
         app:layout_constraintBottom_toTopOf="@+id/change_currency_text_right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/valute_char_code_left"
+        app:layout_constraintStart_toEndOf="@+id/valute_char_code_first"
         app:layout_constraintTop_toBottomOf="@+id/valute_value_right" />
 
     <TextView
-        android:id="@+id/valute_char_code_left"
+        android:id="@+id/valute_char_code_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -66,7 +66,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/change_currency_text_left"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/valute_char_code_right"
+        app:layout_constraintEnd_toStartOf="@+id/valute_char_code_second"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/valute_value_left" />
@@ -78,7 +78,7 @@
         android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/valute_char_code_left"
+        app:layout_constraintBottom_toTopOf="@+id/valute_char_code_first"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/valute_value_right"
         app:layout_constraintHorizontal_bias="0.5"
@@ -92,7 +92,7 @@
         android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/valute_char_code_right"
+        app:layout_constraintBottom_toTopOf="@+id/valute_char_code_second"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/valute_value_left"
