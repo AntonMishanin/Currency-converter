@@ -3,19 +3,19 @@ package com.example.currencyconverter.ui.main;
 
 import com.example.currencyconverter.data.model.ValCurs;
 
-class CurrencyConverter {
+public class CurrencyConverter {
 
     private ValCurs valCurs;
 
-    CurrencyConverter(ValCurs valCurs) {
+    public CurrencyConverter(ValCurs valCurs) {
         this.valCurs = valCurs;
     }
 
     void textChanged(String currentValuteValue, String currentChatCode, String secondCharCode, OnValCursListener onValCursListener) {
         float value = 0;
-        float value2 = 0;
+        float value2;
         try {
-            value = Float.parseFloat(currentValuteValue);
+            value = Float.parseFloat(updateString(currentValuteValue));
 
         } catch (Exception e) {
             onValCursListener.onInputError("Input error");
@@ -44,7 +44,11 @@ class CurrencyConverter {
             float value3 = Float.parseFloat(updateString(valCurs.getValuteList().get(positionSecondValute).getValue()));
             value2 = (nominal * value32) / (value3 * nominal2);
 
-            onValCursListener.onSuccess(String.format("%.2f", value * value2));
+            if((String.format("%.2f", value * value2)).equals("0,00")) {
+                onValCursListener.onSuccess(String.format("%.3f", value * value2));
+            }else{
+                onValCursListener.onSuccess(String.format("%.2f", value * value2));
+            }
         }
 
 
