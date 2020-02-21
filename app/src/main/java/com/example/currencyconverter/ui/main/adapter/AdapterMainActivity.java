@@ -71,8 +71,10 @@ public class AdapterMainActivity extends RecyclerView.Adapter<AdapterMainActivit
             nameTextView.setText(myValuteList.get(position).getName());
             charCodeTextView.setText(myValuteList.get(position).getCharCode());
 
-            if (firstCharCode != null && firstCharCode == myValuteList.get(position).getCharCode()) {
+            if (firstCharCode != null && firstCharCode.equals(myValuteList.get(position).getCharCode())) {
                 imageView.setVisibility(View.VISIBLE);
+            }else{
+                imageView.setVisibility(View.GONE);
             }
 
             itemView.setOnClickListener(v -> onClickListener.onItemClick(position));

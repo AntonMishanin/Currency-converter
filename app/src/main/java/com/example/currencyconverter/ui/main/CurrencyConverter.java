@@ -11,7 +11,7 @@ class CurrencyConverter {
         this.valCurs = valCurs;
     }
 
-    String textChanged(String currentValuteValue, String currentChatCode, String secondCharCode, OnValCursListener onValCursListener) {
+    void textChanged(String currentValuteValue, String currentChatCode, String secondCharCode, OnValCursListener onValCursListener) {
         float value = 0;
         float value2 = 0;
         try {
@@ -24,7 +24,7 @@ class CurrencyConverter {
 
             int positionSecondValute = 0;
             for (int i = 0; i < valCurs.getValuteList().size(); i++) {
-                if (valCurs.getValuteList().get(i).getCharCode() == secondCharCode) {
+                if (valCurs.getValuteList().get(i).getCharCode().equals(secondCharCode)) {
                     positionSecondValute = i;
                 }
             }
@@ -32,7 +32,7 @@ class CurrencyConverter {
 
             int positionCurrentValute = 0;
             for (int i = 0; i < valCurs.getValuteList().size(); i++) {
-                if (valCurs.getValuteList().get(i).getCharCode() == currentChatCode) {
+                if (valCurs.getValuteList().get(i).getCharCode().equals(currentChatCode)) {
                     positionCurrentValute = i;
                 }
             }
@@ -44,16 +44,15 @@ class CurrencyConverter {
             float value3 = Float.parseFloat(updateString(valCurs.getValuteList().get(positionSecondValute).getValue()));
             value2 = (nominal * value32) / (value3 * nominal2);
 
-onValCursListener.onSuccess(Float.toString(value * value2));
+            onValCursListener.onSuccess(String.format("%.2f", value * value2));
         }
 
-        return Float.toString(value * value2);
+
     }
 
     private String updateString(String string) {
-
-        String[] arrStrings1 = string.split(",");
         try {
+            String[] arrStrings1 = string.split(",");
             return arrStrings1[0] + "." + arrStrings1[1];
         } catch (Exception e) {
             return string;

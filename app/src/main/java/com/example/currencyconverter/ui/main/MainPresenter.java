@@ -10,8 +10,8 @@ public class MainPresenter implements OnValCursListener {
         this.mainView = mainView;
     }
 
-    String startConverter(String currentValuteValue, String currentChatCode, String secondCharCode) {
-        return currencyConverter.textChanged(currentValuteValue, currentChatCode, secondCharCode, this);
+    void startConverter(String currentValuteValue, String currentChatCode, String secondCharCode) {
+        currencyConverter.textChanged(currentValuteValue, currentChatCode, secondCharCode, this);
     }
 
     @Override

@@ -1,18 +1,22 @@
 package com.example.currencyconverter.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.example.currencyconverter.R;
 import com.example.currencyconverter.data.model.ValCurs;
@@ -50,45 +54,48 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         setContentView(R.layout.activity_main);
 
 
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+
         getValCursFromSplash();
-        dialogInit();
+        initDialog();
         initView();
         initTextWatcher();
 
         currencyConverter = new CurrencyConverter(valCurs);
         mainPresenter = new MainPresenter(currencyConverter, this);
 
-        firstCharCodeText.setText(valCurs.getValuteList().get(0).getCharCode());
-        secondCharCodeText.setText(valCurs.getValuteList().get(1).getCharCode());
-        firstValuteValueText.setText("1");
+        // firstCharCodeText.setText(valCurs.getValuteList().get(0).getCharCode());
+        //secondCharCodeText.setText(valCurs.getValuteList().get(1).getCharCode());
+        //firstValuteValueText.setText("1");
 
-        firstValueEditedNow = true;
-        textChanged(firstValuteValueText, firstCharCodeText, secondValuteValueText, secondCharCodeText);
-        firstValueEditedNow = false;
+        // firstValueEditedNow = true;
+        // textChanged(firstValuteValueText, firstCharCodeText, secondValuteValueText, secondCharCodeText);
+        // firstValueEditedNow = false;
 
         firstValuteValueText.addTextChangedListener(firstTextWatcher);
         secondValuteValueText.addTextChangedListener(secondTextWatcher);
 
         init();
 
+        loadSharedPreferences();
+
+
+    }
+
+    public void onClickToolbarCancel(View view) {
+        dialog.dismiss();
     }
 
     void getValCursFromSplash() {
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
-/*
-            MyValute myRub = new MyValute();
-            myRub.setCharCode("RUB");
-            myRub.setName("Рубль");
-            myRub.setNominal("1");
-            myRub.setValue("1");
-*/
             valCurs = (ValCurs) arguments.getSerializable(MainActivity.class.getSimpleName());
-            // valCurs.getValuteList().add(0, myRub);
         }
     }
 
-    void dialogInit() {
+    @SuppressLint("InflateParams")
+    void initDialog() {
         view = getLayoutInflater().inflate(R.layout.select_currency_layout, null);
         dialog = new Dialog(this, R.style.AppTheme);
         dialog.setContentView(view);
@@ -150,8 +157,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         String secondCharCode = secondCharCodeView.getText().toString();
         String currentChatCode = currentCharCodeView.getText().toString();
 
-        String value = mainPresenter.startConverter(currentValuteValue, currentChatCode, secondCharCode);
-        secondEditText.setText(value);
+        mainPresenter.startConverter(currentValuteValue, currentChatCode, secondCharCode);
+
 
     }
 
@@ -163,37 +170,62 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         recyclerView.setAdapter(adapterMainActivity);
     }
 
-    public void onChangeFirstVal(View view) {
+    public void onClickChangeFirstVal(View view) {
         firstButtonPressed = true;
 
         String firstCharCode = firstCharCodeText.getText().toString();
         adapterMainActivity.setValute(valCurs, firstCharCode);
+        Log.d("dd", firstCharCode + "==============");
         dialog.show();
     }
 
-    public void onChangeSecondVal(View view) {
+    public void onClickChangeSecondVal(View view) {
         firstButtonPressed = false;
 
         String secondCharCode = secondCharCodeText.getText().toString();
         adapterMainActivity.setValute(valCurs, secondCharCode);
+        Log.d("dd", secondCharCode + "==========");
         dialog.show();
     }
 
     private void saveSharedPreferences() {
         sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("q", );
-        editor.commit();
+        editor.putString("First CharCode", firstCharCodeText.getText().toString());
+        editor.putString("Second CharCode", secondCharCodeText.getText().toString());
+        editor.putString("First Valute Value Text", firstValuteValueText.getText().toString());
+        // editor.putString("Second Valute Value Text", secondValuteValueText.getText().toString());
+        editor.putBoolean("Dialog show", dialog.isShowing());
+        editor.putBoolean("First Button Pressed", firstButtonPressed);
+        editor.apply();
     }
 
     private void loadSharedPreferences() {
         sharedPreferences = getPreferences(MODE_PRIVATE);
-        sharedPreferences.getString();
+        firstCharCodeText.setText(sharedPreferences.getString("First CharCode", "USD"));
+        secondCharCodeText.setText(sharedPreferences.getString("Second CharCode", "EUR"));
+        firstValuteValueText.setText(sharedPreferences.getString("First Valute Value Text", "1"));
+
+        secondValueEditedNow = true;
+        textChanged(secondValuteValueText, secondCharCodeText, firstValuteValueText, firstCharCodeText);
+        secondValueEditedNow = false;
+
+        if (sharedPreferences.getBoolean("Dialog show", false)) {
+            if (sharedPreferences.getBoolean("First Button Pressed", true)) {
+                String firstCharCode = secondCharCodeText.getText().toString();
+                adapterMainActivity.setValute(valCurs, firstCharCode);
+                dialog.show();
+            } else {
+                String secondCharCode = secondCharCodeText.getText().toString();
+                adapterMainActivity.setValute(valCurs, secondCharCode);
+                dialog.show();
+            }
+        }
     }
 
     @Override
     public void onItemClick(int position) {
-        dialog.cancel();
+        dialog.dismiss();
 
         if (firstButtonPressed) {
             firstCharCodeText.setText(valCurs.getValuteList().get(position).getCharCode());
@@ -220,7 +252,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
+        saveSharedPreferences();
+        dialog.dismiss();
     }
 }

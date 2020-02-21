@@ -6,8 +6,11 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".ui.main.MainActivity">
+
+    <include
+        android:id="@+id/toolbar_main"
+        layout="@layout/toolbar_main" />
 
     <TextView
         android:id="@+id/change_currency_text_left"
@@ -16,8 +19,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:onClick="onChangeFirstVal"
+        android:onClick="onClickChangeFirstVal"
         android:text="@string/change_the_currency"
+        android:textColor="@color/lightBlue"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,8 +38,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:onClick="onChangeSecondVal"
+        android:onClick="onClickChangeSecondVal"
         android:text="@string/change_the_currency"
+        android:textColor="@color/lightBlue"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +53,6 @@
         android:id="@+id/valute_char_code_second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/change_currency_text_right"
@@ -61,7 +65,6 @@
         android:id="@+id/valute_char_code_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/change_currency_text_left"
@@ -75,7 +78,6 @@
         android:id="@+id/valute_value_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/valute_char_code_first"
@@ -89,7 +91,6 @@
         android:id="@+id/valute_value_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/valute_char_code_second"

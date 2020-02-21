@@ -5,6 +5,9 @@
     android:gravity="center"
     android:orientation="vertical">
 
+   <include
+       android:id="@+id/toolbar_dialog"
+       layout="@layout/toolbar_dialog"/>
 
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/recyclerView"
