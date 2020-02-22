@@ -2,6 +2,8 @@ package com.example.currencyconverter.data.prefs;
 
 import android.content.SharedPreferences;
 
+import com.example.currencyconverter.data.model.PrefModel;
+
 public class PreferencesHelper {
 
     private static final String KEY_FIRST_CHAR_CODE = "KEY_FIRST_CHAR_CODE";

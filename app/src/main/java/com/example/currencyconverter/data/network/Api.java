@@ -9,5 +9,4 @@ public interface Api {
 
     @GET("scripts/XML_daily.asp")
     Single<ValCurs> getValCurs();
-
 }

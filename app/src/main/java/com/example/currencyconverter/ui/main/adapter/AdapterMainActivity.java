@@ -73,7 +73,7 @@ public class AdapterMainActivity extends RecyclerView.Adapter<AdapterMainActivit
 
             if (firstCharCode != null && firstCharCode.equals(myValuteList.get(position).getCharCode())) {
                 imageView.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 imageView.setVisibility(View.GONE);
             }
 

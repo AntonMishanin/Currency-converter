@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,8 +18,7 @@ import android.widget.Toast;
 
 import com.example.currencyconverter.R;
 import com.example.currencyconverter.data.model.ValCurs;
-import com.example.currencyconverter.data.prefs.PrefModel;
-import com.example.currencyconverter.data.prefs.PreferencesHelper;
+import com.example.currencyconverter.data.model.PrefModel;
 import com.example.currencyconverter.di.component.DaggerMainActivityComponent;
 import com.example.currencyconverter.di.module.MainActivityModule;
 import com.example.currencyconverter.ui.main.adapter.AdapterMainActivity;
@@ -50,10 +48,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     boolean firstValueEditedNow = false;
     boolean secondValueEditedNow = false;
 
-    // CurrencyConverter currencyConverter;
     @Inject
     MainPresenter mainPresenter;
-    // PreferencesHelper preferencesHelper;
 
     SharedPreferences sharedPreferences;
 
@@ -67,21 +63,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         initDialog();
         initView();
         initTextWatcher();
-
-
-        //preferencesHelper = new PreferencesHelper(sharedPreferences);
-        // currencyConverter = new CurrencyConverter(valCurs);
-        // mainPresenter = new MainPresenter(currencyConverter, this, preferencesHelper);
-
-
         init();
         initDagger();
         getSharedPreferences();
-    }
-
-    private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar_main);
-        setSupportActionBar(toolbar);
     }
 
     void getValCursFromSplash() {
@@ -89,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         if (arguments != null) {
             valCurs = (ValCurs) arguments.getSerializable(MainActivity.class.getSimpleName());
         }
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
     }
 
     @SuppressLint("InflateParams")
@@ -121,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
             public void afterTextChanged(Editable s) {
                 if (!secondValueEditedNow) {
                     firstValueEditedNow = true;
-                    textChanged(firstValuteValueText, firstCharCodeText, secondCharCodeText);
+                    convertibleValute(firstValuteValueText, firstCharCodeText, secondCharCodeText);
                     firstValueEditedNow = false;
                 }
             }
@@ -142,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
             public void afterTextChanged(Editable s) {
                 if (!firstValueEditedNow) {
                     secondValueEditedNow = true;
-                    textChanged(secondValuteValueText, secondCharCodeText, firstCharCodeText);
+                    convertibleValute(secondValuteValueText, secondCharCodeText, firstCharCodeText);
                     secondValueEditedNow = false;
                 }
             }
@@ -156,12 +145,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
                 .inject(this);
     }
 
-    void textChanged(EditText currentEditText, TextView currentCharCodeView, TextView secondCharCodeView) {
-        String currentValuteValue = currentEditText.getText().toString();
+    void convertibleValute(EditText currentEditText, TextView currentCharCodeView, TextView secondCharCodeView) {
+        String currentEditableValuteValue = currentEditText.getText().toString();
         String secondCharCode = secondCharCodeView.getText().toString();
         String currentChatCode = currentCharCodeView.getText().toString();
 
-        mainPresenter.startConverter(currentValuteValue, currentChatCode, secondCharCode);
+        mainPresenter.convertibleValute(currentEditableValuteValue, currentChatCode, secondCharCode);
 
 
     }
@@ -214,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         firstButtonPressed = prefModel.isFirstButtonPressed();
 
         secondValueEditedNow = true;
-        textChanged(secondValuteValueText, secondCharCodeText, firstCharCodeText);
+        convertibleValute(secondValuteValueText, secondCharCodeText, firstCharCodeText);
         secondValueEditedNow = false;
 
         if (prefModel.isDialogIsShowing()) {

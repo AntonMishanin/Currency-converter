@@ -11,15 +11,17 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 @Module
 public class AppModule {
 
+    private static final String BASE_URL = "https://www.cbr.ru/";
+
     @Singleton
     @Provides
-    SimpleXmlConverterFactory provideSimpleXmlConverterFactory(){
+    SimpleXmlConverterFactory provideSimpleXmlConverterFactory() {
         return SimpleXmlConverterFactory.create();
     }
 
     @Singleton
     @Provides
-    RxJava2CallAdapterFactory provideRxJava2CallAdapterFactory(){
+    RxJava2CallAdapterFactory provideRxJava2CallAdapterFactory() {
         return RxJava2CallAdapterFactory.create();
     }
 
@@ -28,7 +30,7 @@ public class AppModule {
     Retrofit provideRetrofit(RxJava2CallAdapterFactory rxJava2CallAdapterFactory,
                              SimpleXmlConverterFactory simpleXmlConverterFactory) {
         return new Retrofit.Builder()
-                .baseUrl("https://www.cbr.ru/")
+                .baseUrl(BASE_URL)
                 .addCallAdapterFactory(rxJava2CallAdapterFactory)
                 .addConverterFactory(simpleXmlConverterFactory)
                 .build();

@@ -1,4 +1,4 @@
-package com.example.currencyconverter.data.prefs;
+package com.example.currencyconverter.data.model;
 
 public class PrefModel {
 

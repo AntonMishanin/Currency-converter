@@ -87,7 +87,11 @@
         app:layout_constraintEnd_toStartOf="@+id/valute_value_right"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        tools:targetApi="o"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/valute_value_right"
@@ -99,7 +103,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/valute_value_left"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        tools:targetApi="o"
+        tools:ignore="LabelFor" />
 
     <ImageButton
         android:id="@+id/buttonSwapValute"
@@ -119,6 +127,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar_main"
         app:layout_constraintVertical_bias="0.283"
-        app:srcCompat="@drawable/ic_compare_arrows" />
+        app:srcCompat="@drawable/ic_compare_arrows"
+        android:contentDescription="@string/image_button_swap_valute" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

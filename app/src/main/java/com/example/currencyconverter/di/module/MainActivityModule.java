@@ -27,19 +27,19 @@ public class MainActivityModule {
 
     @PerActivity
     @Provides
-    PreferencesHelper providePreferencesHelper(){
+    PreferencesHelper providePreferencesHelper() {
         return new PreferencesHelper(sharedPreferences);
     }
 
     @PerActivity
     @Provides
-    CurrencyConverter provideCurrencyConverter(){
+    CurrencyConverter provideCurrencyConverter() {
         return new CurrencyConverter(valCurs);
     }
 
     @PerActivity
     @Provides
-    MainPresenter provideMainPresenter(CurrencyConverter currencyConverter, PreferencesHelper preferencesHelper){
+    MainPresenter provideMainPresenter(CurrencyConverter currencyConverter, PreferencesHelper preferencesHelper) {
         return new MainPresenter(currencyConverter, mainView, preferencesHelper);
     }
 

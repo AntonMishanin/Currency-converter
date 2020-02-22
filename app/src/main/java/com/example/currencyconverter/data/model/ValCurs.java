@@ -24,9 +24,8 @@ public class ValCurs implements Serializable {
     public List<MyValute> getValuteList() {
         return valuteList;
     }
+
     public void setValuteList(List<MyValute> valuteList) {
         this.valuteList = valuteList;
     }
-
-
 }

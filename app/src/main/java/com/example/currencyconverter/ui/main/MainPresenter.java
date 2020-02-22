@@ -1,6 +1,6 @@
 package com.example.currencyconverter.ui.main;
 
-import com.example.currencyconverter.data.prefs.PrefModel;
+import com.example.currencyconverter.data.model.PrefModel;
 import com.example.currencyconverter.data.prefs.PreferencesHelper;
 
 public class MainPresenter implements OnValCursListener {
@@ -15,8 +15,8 @@ public class MainPresenter implements OnValCursListener {
         this.preferencesHelper = preferencesHelper;
     }
 
-    void startConverter(String currentValuteValue, String currentChatCode, String secondCharCode) {
-        currencyConverter.textChanged(currentValuteValue, currentChatCode, secondCharCode, this);
+    void convertibleValute(String currentEditableValuteValue, String currentChatCode, String secondCharCode) {
+        currencyConverter.convertibleValute(currentEditableValuteValue, currentChatCode, secondCharCode, this);
     }
 
     @Override
